@@ -9,3 +9,4 @@ PyPDF2
 bitsandbytes
 accelerate
 charset_normalizer
+anthropic
