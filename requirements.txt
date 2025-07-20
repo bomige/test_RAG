@@ -1,0 +1,11 @@
+streamlit
+torch
+transformers
+langchain
+openai
+faiss-cpu
+chromadb
+PyPDF2
+bitsandbytes
+accelerate
+charset_normalizer
