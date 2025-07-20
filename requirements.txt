@@ -10,3 +10,4 @@ bitsandbytes
 accelerate
 charset_normalizer
 anthropic
+matplotlib
