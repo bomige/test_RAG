@@ -11,3 +11,4 @@ accelerate
 charset_normalizer
 anthropic
 matplotlib
+langchain_community
