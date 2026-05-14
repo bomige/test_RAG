@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
-import numpy as np
 import matplotlib.font_manager as fm
 import platform
 from collections import defaultdict
@@ -23,7 +21,7 @@ def set_korean_font():
             if font_path:
                 plt.rcParams['font.family'] = font_name
                 break
-        except:
+        except Exception:
             continue
     
     # 마이너스 기호 깨짐 방지
