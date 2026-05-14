@@ -156,54 +156,58 @@ UA_BS|6
                 current_section = 'interactions'
             elif current_section and '|' in line:
                 parts = line.split('|')
-                
-                if current_section == 'zones':
-                    data['zones'].append({
-                        'id': parts[0],
-                        'name': parts[1],
-                        'start': int(parts[2]),
-                        'end': int(parts[3])
-                    })
-                elif current_section == 'time_steps':
-                    data['time_steps'].append({
-                        'step': int(parts[0]),
-                        'duration': parts[1]
-                    })
-                elif current_section == 'touchpoints':
-                    data['touchpoints'].append({
-                        'id': parts[0],
-                        'name': parts[1],
-                        'position': int(parts[2])
-                    })
-                elif current_section == 'user_actions':
-                    data['user_actions'].append({
-                        'id': parts[0],
-                        'name': parts[1],
-                        'position': int(parts[2])
-                    })
-                elif current_section == 'staff_system':
-                    data['staff_system'].append({
-                        'id': parts[0],
-                        'name': parts[1],
-                        'position': int(parts[2])
-                    })
-                elif current_section == 'backstage':
-                    data['backstage'].append({
-                        'id': parts[0],
-                        'name': parts[1],
-                        'start': int(parts[2]),
-                        'end': int(parts[3]),
-                        'type': parts[4]
-                    })
-                elif current_section == 'interactions':
-                    if len(parts) >= 2:
-                        interaction_type = parts[0]
-                        # 쉼표로 구분된 숫자들을 파싱
-                        try:
-                            positions = [int(x.strip()) for x in parts[1].split(',')]
-                            data['interactions'][interaction_type] = positions
-                        except ValueError as e:
-                            print(f"Error parsing interaction positions: {parts[1]}, Error: {e}")
-                            continue
+
+                try:
+                    if current_section == 'zones':
+                        data['zones'].append({
+                            'id': parts[0],
+                            'name': parts[1],
+                            'start': int(parts[2]),
+                            'end': int(parts[3])
+                        })
+                    elif current_section == 'time_steps':
+                        data['time_steps'].append({
+                            'step': int(parts[0]),
+                            'duration': parts[1]
+                        })
+                    elif current_section == 'touchpoints':
+                        data['touchpoints'].append({
+                            'id': parts[0],
+                            'name': parts[1],
+                            'position': int(parts[2])
+                        })
+                    elif current_section == 'user_actions':
+                        data['user_actions'].append({
+                            'id': parts[0],
+                            'name': parts[1],
+                            'position': int(parts[2])
+                        })
+                    elif current_section == 'staff_system':
+                        data['staff_system'].append({
+                            'id': parts[0],
+                            'name': parts[1],
+                            'position': int(parts[2])
+                        })
+                    elif current_section == 'backstage':
+                        data['backstage'].append({
+                            'id': parts[0],
+                            'name': parts[1],
+                            'start': int(parts[2]),
+                            'end': int(parts[3]),
+                            'type': parts[4] if len(parts) > 4 else 'individual'
+                        })
+                    elif current_section == 'interactions':
+                        if len(parts) >= 2:
+                            interaction_type = parts[0]
+                            # 쉼표로 구분된 숫자들을 파싱
+                            try:
+                                positions = [int(x.strip()) for x in parts[1].split(',')]
+                                data['interactions'][interaction_type] = positions
+                            except ValueError as e:
+                                print(f"Error parsing interaction positions: {parts[1]}, Error: {e}")
+                                continue
+                except Exception as e:
+                    print(f"Error parsing line: {line}, Error: {e}")
+                    continue
         
         return data
